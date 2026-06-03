@@ -1,0 +1,61 @@
+<section id="tracker" class="view">
+    <!-- Header aligned with screenshot -->
+    <div class="text-center mb-4">
+        <h2>📚 Habit Tracker – 10h Study Goal</h2>
+    </div>
+
+    <!-- Controls Row -->
+    <div class="flex gap-4 align-center mb-4 p-4">
+        <div>
+            <label class="text-muted" style="display:block; font-size:12px;">Month</label>
+            <select class="input-field" style="width: auto;">
+                <option value="6">6</option>
+            </select>
+        </div>
+        <div>
+            <label class="text-muted" style="display:block; font-size:12px;">Year</label>
+            <input type="number" value="2026" class="input-field" style="width: 80px;">
+        </div>
+        
+        <div style="margin-top: 18px; display: flex; gap: 8px;">
+            <button class="btn-primary" style="background-color: #3B82F6;"><i data-lucide="refresh-cw"></i> Refresh</button>
+            <button class="btn-primary" style="background-color: #EAB308; color: #000;"><i data-lucide="trophy"></i> AIR-1 Mode</button>
+            <button class="btn-primary" style="background-color: #10B981;"><i data-lucide="download"></i> Export CSV</button>
+        </div>
+    </div>
+
+    <!-- Subjects / Habits Panel -->
+    <div class="glass-panel p-6 mb-4">
+        <h4 style="margin-bottom: 16px;"><i data-lucide="pin" style="width: 16px;"></i> Subjects / Habits</h4>
+        <div class="flex gap-4">
+            <input type="text" placeholder="New subject" class="input-field" style="max-width: 200px;">
+            <button class="btn-secondary" style="background-color: #64748B; color: white;"><i data-lucide="plus"></i> Add</button>
+            <select class="input-field" style="max-width: 150px;">
+                <option>Study Hours</option>
+            </select>
+            <button class="btn-secondary" style="color: #06B6D4; border-color: #06B6D4;"><i data-lucide="edit-2"></i> Rename</button>
+            <button class="btn-secondary" style="color: #F43F5E; border-color: #F43F5E;"><i data-lucide="trash-2"></i> Delete</button>
+        </div>
+    </div>
+
+    <!-- Daily Check Grid -->
+    <div class="glass-panel p-0">
+        <div style="padding: 16px; border-bottom: 1px solid var(--border-color);">
+            <h4><i data-lucide="calendar" style="width: 16px;"></i> Daily Check (✓ = completed)</h4>
+        </div>
+        <div class="table-container" style="border: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg);">
+            <table class="data-table" id="habit-table">
+                <thead>
+                    <tr>
+                        <th class="cell-center">Day</th>
+                        <th class="cell-center">Study Hours</th>
+                        <th class="cell-center">Homework</th>
+                    </tr>
+                </thead>
+                <tbody id="habit-body">
+                    <!-- Javascript will populate rows 14, 15, 16, etc. here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

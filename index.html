@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AIR-1 Platform | Premium Study OS</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js for Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- HTML2Canvas for PNG Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body data-theme="dark">
+<body data-theme="light">
     <div class="app-container">
         <aside class="sidebar glass-panel">
             <div class="brand">
@@ -23,37 +27,34 @@
             <nav class="nav-menu">
                 <p class="nav-label">Menu</p>
                 <button class="nav-item active" data-target="dashboard">
-                    <i data-lucide="layout-dashboard"></i> Dashboard
+                    <i data-lucide="layout-dashboard"></i> <span>Dashboard</span>
                 </button>
                 <button class="nav-item" data-target="tracker">
-                    <i data-lucide="check-square"></i> Habit Grid
+                    <i data-lucide="check-square"></i> <span>Habits</span>
                 </button>
                 <button class="nav-item" data-target="logs">
-                    <i data-lucide="book-open"></i> Study Logs
+                    <i data-lucide="book-open"></i> <span>Logs</span>
                 </button>
                 <button class="nav-item" data-target="analytics">
-                    <i data-lucide="bar-chart-2"></i> Analytics
+                    <i data-lucide="bar-chart-2"></i> <span>Analytics</span>
                 </button>
                 <button class="nav-item" data-target="timer">
-                    <i data-lucide="clock"></i> Focus Timer
+                    <i data-lucide="clock"></i> <span>Timer</span>
                 </button>
             </nav>
-
-            <div class="sidebar-footer">
-                <button class="nav-item" id="theme-toggle">
-                    <i data-lucide="moon"></i> Toggle Theme
-                </button>
-            </div>
         </aside>
 
-        <main class="main-content">
+        <main class="main-content" id="export-target">
             <header class="topbar glass-panel">
                 <div class="greeting">
                     <h2 id="dynamic-greeting">Good morning, Aspirant.</h2>
                     <p>Stay focused. Your goals are within reach.</p>
                 </div>
                 <div class="topbar-actions">
-                    <button class="btn-secondary" id="export-btn"><i data-lucide="download"></i> Export Data</button>
+                    <button class="btn-icon" id="theme-toggle" title="Toggle Theme">
+                        <i data-lucide="moon"></i>
+                    </button>
+                    <button class="btn-secondary" id="export-btn"><i data-lucide="image"></i> Save PNG</button>
                     <div class="streak-badge">
                         <i data-lucide="flame"></i> <span id="nav-streak">0</span> Day Streak
                     </div>
@@ -61,7 +62,6 @@
             </header>
 
             <div class="views-container">
-                
                 <section id="dashboard" class="view active">
                     <div class="grid-stats">
                         <div class="stat-card glass-panel">
@@ -92,8 +92,7 @@
                             <div class="section-header">
                                 <h3><i data-lucide="brain"></i> Smart Insights</h3>
                             </div>
-                            <ul class="insights-list" id="ai-insights">
-                                </ul>
+                            <ul class="insights-list" id="ai-insights"></ul>
                         </div>
                         <div class="glass-panel p-6 flex-1">
                             <div class="section-header">
@@ -206,7 +205,6 @@
                         </div>
                     </div>
                 </section>
-
             </div>
         </main>
     </div>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AIR-1 Platform | Premium Study OS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <div class="app-container">
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <div class="brand-icon"><i data-lucide="zap"></i></div>
+                <div class="brand-text">
+                    <h1>AIR-1</h1>
+                    <p>Study OS</p>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <p class="nav-label">Menu</p>
+                <button class="nav-item active" data-target="dashboard">
+                    <i data-lucide="layout-dashboard"></i> <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-target="tracker">
+                    <i data-lucide="check-square"></i> <span>Habits</span>
+                </button>
+                <button class="nav-item" data-target="logs">
+                    <i data-lucide="book-open"></i> <span>Logs</span>
+                </button>
+                <button class="nav-item" data-target="analytics">
+                    <i data-lucide="bar-chart-2"></i> <span>Analytics</span>
+                </button>
+                <button class="nav-item" data-target="timer">
+                    <i data-lucide="clock"></i> <span>Timer</span>
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="export-target">
+            <header class="topbar glass-panel">
+                <div class="greeting">
+                    <h2 id="dynamic-greeting">Good morning, Aspirant.</h2>
+                    <p>Stay focused. Your goals are within reach.</p>
+                </div>
+                <div class="topbar-actions">
+                    <button class="btn-icon" id="theme-toggle" title="Toggle Theme">
+                        <i data-lucide="moon"></i>
+                    </button>
+                    <button class="btn-secondary" id="export-btn"><i data-lucide="image"></i> Save PNG</button>
+                    <div class="streak-badge">
+                        <i data-lucide="flame"></i> <span id="nav-streak">0</span> Day Streak
+                    </div>
+                </div>
+            </header>
+
+            <div class="views-container">
+                <section id="dashboard" class="view active">
+                    <div class="grid-stats">
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon purple"><i data-lucide="target"></i></div>
+                            <div class="stat-info">
+                                <h3>Productivity Score</h3>
+                                <p class="stat-value" id="dash-prod-score">0<span class="muted">/100</span></p>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon emerald"><i data-lucide="clock"></i></div>
+                            <div class="stat-info">
+                                <h3>Study Hours (Today)</h3>
+                                <p class="stat-value" id="dash-hours-today">0.0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon blue"><i data-lucide="check-circle"></i></div>
+                            <div class="stat-info">
+                                <h3>Habits Completed</h3>
+                                <p class="stat-value" id="dash-habits-today">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="split-layout mt-4">
+                        <div class="glass-panel p-6 flex-2">
+                            <div class="section-header">
+                                <h3><i data-lucide="brain"></i> Smart Insights</h3>
+                            </div>
+                            <ul class="insights-list" id="ai-insights"></ul>
+                        </div>
+                        <div class="glass-panel p-6 flex-1">
+                            <div class="section-header">
+                                <h3><i data-lucide="crosshair"></i> Daily Goal Progress</h3>
+                            </div>
+                            <div class="circular-progress-container">
+                                <svg viewBox="0 0 36 36" class="circular-chart purple">
+                                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                  <path class="circle" id="goal-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                  <text x="18" y="20.35" class="percentage" id="goal-percentage">0%</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tracker" class="view">
+                    <div class="glass-panel p-6">
+                        <div class="section-header space-between">
+                            <div>
+                                <h3>Monthly Habit Grid</h3>
+                                <p class="text-muted">Track your daily consistency.</p>
+                            </div>
+                            <div class="actions">
+                                <input type="month" id="tracker-month" class="input-field">
+                                <button class="btn-primary" id="add-habit-btn"><i data-lucide="plus"></i> New Habit</button>
+                            </div>
+                        </div>
+                        <div class="table-container mt-4">
+                            <table class="data-table" id="habit-table">
+                                <thead id="habit-head"></thead>
+                                <tbody id="habit-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="logs" class="view">
+                    <div class="split-layout">
+                        <div class="glass-panel p-6 flex-1">
+                            <h3>Log Session</h3>
+                            <form id="log-form" class="form-grid mt-4">
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input type="date" id="log-date" class="input-field" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Subject</label>
+                                    <select id="log-subject" class="input-field" required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Hours</label>
+                                    <input type="number" step="0.25" min="0" id="log-hours" class="input-field" placeholder="e.g., 2.5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Questions Solved</label>
+                                    <input type="number" id="log-qs" class="input-field" placeholder="e.g., 45">
+                                </div>
+                                <button type="submit" class="btn-primary full-width mt-2">Save Session</button>
+                            </form>
+                        </div>
+                        <div class="glass-panel p-6 flex-2">
+                            <h3>Recent Logs</h3>
+                            <div class="table-container mt-4">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Subject</th>
+                                            <th>Hours</th>
+                                            <th>Qs</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="logs-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="analytics" class="view">
+                    <div class="split-layout">
+                        <div class="glass-panel p-6 flex-2">
+                            <h3>Study Hours Trend</h3>
+                            <div class="chart-container">
+                                <canvas id="trendChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="glass-panel p-6 flex-1">
+                            <h3>Subject Distribution</h3>
+                            <div class="chart-container">
+                                <canvas id="subjectChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="timer" class="view">
+                    <div class="glass-panel p-6 center-content timer-container">
+                        <h3>Deep Work Timer</h3>
+                        <div class="timer-display mt-4">
+                            <span id="time-left">25:00</span>
+                            <p class="text-muted mt-2" id="timer-mode">Focus Phase</p>
+                        </div>
+                        <div class="timer-controls mt-6">
+                            <button class="btn-primary" id="btn-start-timer"><i data-lucide="play"></i> Start</button>
+                            <button class="btn-secondary" id="btn-pause-timer"><i data-lucide="pause"></i> Pause</button>
+                            <button class="btn-secondary" id="btn-reset-timer"><i data-lucide="rotate-ccw"></i> Reset</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
